@@ -1,15 +1,35 @@
-- name: Deploy Apache in Docker 
-  hosts: 10.77.77.6
-  remote_user: vagrant
+- name: Deploy Apache in Docker container
+  hosts: astra
   become: yes
   tasks:
-    - name: Install Docker 
+    - name: Install Docker python module
       pip:
         name: docker
+        executable: pip3
+      become: true
 
-    - name: Run Apache 
+    - name: Create directory for website files
+      file:
+        path: /var/www/html
+        state: directory
+
+    - name: Download index.html from GitHub
+      get_url:
+        url: https://raw.githubusercontent.com/THEISEIZ/Astra_Test/Apache/index.html
+        dest: /var/www/html/index.html
+
+    - name: Install Docker
+      apt:
+        pkg: docker.io
+        update_cache: yes
+      become: true
+
+    - name: Run Apache container
       docker_container:
         name: apache_container
         image: httpd:2.4
         state: started
+        volumes:
+          - /var/www/html:/usr/local/apache2/htdocs
         published_ports: 80:80
+      become: true
