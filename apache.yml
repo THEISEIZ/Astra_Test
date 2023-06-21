@@ -4,7 +4,7 @@
   tasks:
   - name: Сборка образа Docker
     docker_image:
-      name: ig_apache
+      name: ivangoryainov_apache
       tag: latest
       path: /home/vagrant/
       pull: yes
