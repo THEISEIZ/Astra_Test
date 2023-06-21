@@ -21,20 +21,22 @@ Vagrant.configure("2") do |config|
 
 #Установка всех необходимых пакетов
   config.vm.provision "shell", inline: <<-SHELL
-    sudo apt update
-    sudo apt install -y ansible docker.io python3-pip
-	pip3 install docker
+	echo -e "\033[33mУстановка необходимых пакетов, ожидайте\033[0m"
+    sudo apt update > /dev/null
+    sudo apt install -y ansible docker.io python3-pip > /dev/null
+	pip3 install docker > /dev/null
+	echo -e "\033[32mУстановка необходимых пакетов заверешена успешно\033[0m"
+	echo -e "\033[33mРазвёртывание образов Apache и Nginx в контейнерах Docker\033[0m"
 #Загрузка Dockerfile для сборки контейнера с Apache
-	curl -o /home/vagrant/Dockerfile https://raw.githubusercontent.com/THEISEIZ/Astra_Test/Other/Dockerfile
+	curl -o /home/vagrant/Dockerfile https://raw.githubusercontent.com/THEISEIZ/Astra_Test/Other/Dockerfile 
 #Загрузка Ansible playbook с GitHub для развёртывания контейнера Docker с Apache
-	curl -o /home/vagrant/apache.yml https://raw.githubusercontent.com/THEISEIZ/Astra_Test/Apache/apache.yml
+	curl -o /home/vagrant/apache.yml https://raw.githubusercontent.com/THEISEIZ/Astra_Test/Apache/apache.yml 
     ansible-playbook /home/vagrant/apache.yml 
 #Загрузка Ansible playbook с GitHub для развёртывания контейнера Docker с Nginx
-	curl -o /home/vagrant/nginx.yml https://raw.githubusercontent.com/THEISEIZ/Astra_Test/Nginx/nginx.yml
+	curl -o /home/vagrant/nginx.yml https://raw.githubusercontent.com/THEISEIZ/Astra_Test/Nginx/nginx.yml 
 	ansible-playbook /home/vagrant/nginx.yml 
+	echo -e "\033[32mРазвёртывание Docker и Apache прошло успешно\033[0m"
   SHELL
-
-  config.vm.synced_folder ".", "/home/vagrant", disabled: true
 
 #Частичная зачистка следов работы Vagrant
   config.vm.provision "shell", inline: <<-SHELL
