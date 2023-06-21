@@ -1,8 +1,8 @@
-- name: Сборка Docker-контейнера
+- name: Сборка Docker-контейнера веб-сервера Apache и запуск 
   hosts: localhost
   gather_facts: no
   tasks:
-  - name: Собрать Docker образ
+  - name: Сборка Docker образа
     docker_image:
       name: ig_apache
       tag: latest
