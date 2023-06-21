@@ -1,5 +1,5 @@
 - name: Deploy Apache container
-  hosts: all
+  hosts: 10.77.77.10
   become: yes
   gather_facts: no
 
