@@ -1,32 +1,19 @@
-- name: Развёртывание веб-сервера Apache 
+- name: Сборка Docker-контейнера
   hosts: localhost
-  become: yes
   gather_facts: no
-
   tasks:
-
-  - name: Загрузка образа 
+  - name: Собрать Docker образ
     docker_image:
-      name: httpd
-      state: present
+      name: ig_apache
+      tag: latest
+      path: /home/vagrant/
+      force: yes
+      pull: yes
 
-  - name: Развёртывание контейнера
+  - name: Запуск Docker-контейнера
     docker_container:
-      name: apache
-      image: httpd
+      name: ig_apache
+      image: ig_apache:latest
       state: started
       published_ports:
         - "80:80"
-
-  - name: Установка git
-    apt:
-      name: git
-      state: present
-
-  - name: Загрузка index.html из репозитория GitHub
-    git:
-      repo: 'https://github.com/THEISEIZ/Astra_Test.git'
-      dest: /tmp/Astra_Test
-
-  - name: Размещение web-страницы 
-    command: docker cp /tmp/Astra_Test/index.html apache:/usr/local/apache2/htdocs/index.html
