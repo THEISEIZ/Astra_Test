@@ -5,10 +5,6 @@
 
   tasks:
 
-- name: Install Python library for Docker
-      pip:
-        name: docker
-
   - name: Pull apache httpd image
     docker_image:
       name: httpd
