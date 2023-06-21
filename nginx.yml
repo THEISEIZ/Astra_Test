@@ -1,15 +1,15 @@
-- name: Deploy Nginx container
+- name: Развёртывание Docker контейнера с Nginx
   hosts: localhost
   become: yes
   gather_facts: no
 
   tasks:
-  - name: Pull nginx image
+  - name: Загрузка образа Nginx из репозитория Docker
     docker_image:
       name: nginx
       state: present
 
-  - name: Create nginx container
+  - name: Развёртывание Docker контейнера
     docker_container:
       name: nginx
       image: nginx
