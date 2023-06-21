@@ -7,7 +7,7 @@
   - name: Pull apache httpd image
     docker_image:
       name: httpd
-      source: pull
+      state: present
 
   - name: Create apache container
     docker_container:
