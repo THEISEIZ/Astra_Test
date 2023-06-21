@@ -7,7 +7,6 @@
       name: ig_apache
       tag: latest
       path: /home/vagrant/
-      force: yes
       pull: yes
 
   - name: Запуск Docker-контейнера
