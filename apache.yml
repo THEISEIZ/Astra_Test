@@ -1,4 +1,3 @@
----
 - name: Deploy Apache container
   hosts: all
   become: yes
