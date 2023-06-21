@@ -1,0 +1,58 @@
+- name: Deploy Apache container
+  hosts: presaleastra
+  become: yes
+  gather_facts: no
+
+  tasks:
+  - name: Install required system packages
+    apt:
+      name: ['apt-transport-https', 'ca-certificates', 'curl', 'software-properties-common', 'python3-pip', 'python3-setuptools']
+      state: present
+      update_cache: yes
+
+  - name: Add Docker GPG apt Key
+    apt_key:
+      url: https://download.docker.com/linux/ubuntu/gpg
+      state: present
+
+  - name: Add Docker Repository
+    apt_repository:
+      repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable
+      state: present
+
+  - name: Update apt and install docker-ce
+    apt:
+      update_cache: yes
+      name: docker-ce
+      state: present
+
+  - name: Install Docker Module for Python
+    pip:
+      name: docker
+
+  - name: Pull apache httpd image
+    docker_image:
+      name: httpd
+      source: pull
+
+  - name: Create apache container
+    docker_container:
+      name: apache
+      image: httpd
+      state: started
+      published_ports:
+        - "80:80"
+
+  - name: Install git
+    apt:
+      name: git
+      state: present
+
+  - name: Download index.html from GitHub
+    git:
+      repo: 'https://github.com/THEISEIZ/Astra_Test.git'
+      dest: /tmp/Astra_Test
+      version: Apache
+
+  - name: Copy index.html to apache container
+    command: docker cp /tmp/Astra_Test/Apache/index.html apache:/usr/local/apache2/htdocs/index.html
