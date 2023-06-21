@@ -12,7 +12,7 @@
   - name: Запуск Docker-контейнера
     docker_container:
       name: ig_apache
-      image: ig_apache:latest
+      image: ivangoryainov_apache:latest
       state: started
       published_ports:
         - "80:80"
