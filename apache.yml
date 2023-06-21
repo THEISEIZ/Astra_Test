@@ -1,16 +1,16 @@
-- name: Deploy Apache container
+- name: Развёртывание веб-сервера Apache 
   hosts: localhost
   become: yes
   gather_facts: no
 
   tasks:
 
-  - name: Pull apache httpd image
+  - name: Загрузка образа 
     docker_image:
       name: httpd
       state: present
 
-  - name: Create apache container
+  - name: Развёртывание контейнера
     docker_container:
       name: apache
       image: httpd
@@ -18,15 +18,15 @@
       published_ports:
         - "80:80"
 
-  - name: Install git
+  - name: Установка git
     apt:
       name: git
       state: present
 
-  - name: Download index.html from GitHub
+  - name: Загрузка index.html из репозитория GitHub
     git:
       repo: 'https://github.com/THEISEIZ/Astra_Test.git'
       dest: /tmp/Astra_Test
 
-  - name: Copy index.html to apache container
+  - name: Размещение web-страницы 
     command: docker cp /tmp/Astra_Test/index.html apache:/usr/local/apache2/htdocs/index.html
