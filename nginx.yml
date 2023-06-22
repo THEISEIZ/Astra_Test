@@ -14,5 +14,6 @@
       name: nginx
       image: nginx
       state: started
+      restart_policy: always
       published_ports:
         - "8080:80"
