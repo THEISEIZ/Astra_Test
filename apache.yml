@@ -14,5 +14,6 @@
       name: ivangoryainov_apache
       image: ivangoryainov_apache:latest
       state: started
+      restart_policy: always
       published_ports:
         - "80:80"
