@@ -1,5 +1,5 @@
 #Dockerfile для сборки веб-сервера Apache выводящего собственную веб-страницу
-FROM httpd:2.4
+FROM httpd:latest
 
 #Загрузка веб-страницы в контейнер
 ADD https://raw.githubusercontent.com/THEISEIZ/Astra_Test/Other/index.html /usr/local/apache2/htdocs/
