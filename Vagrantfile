@@ -33,11 +33,4 @@ Vagrant.configure("2") do |config|
 	curl -o /home/vagrant/nginx.yml https://raw.githubusercontent.com/THEISEIZ/Astra_Test/Nginx/nginx.yml 
 	ansible-playbook /home/vagrant/nginx.yml 
   SHELL
-
-#Частичная зачистка следов работы Vagrant
-  config.vm.provision "shell", inline: <<-SHELL
-	echo "Clean Vagrant data"
-    rm -rf /home/vagrant/
-	SHELL
-	
 end
