@@ -1,9 +1,9 @@
 Vagrant.configure("2") do |config|
-#Название используемого образа 
- config.vm.box = "astra_presale"
-#Отключение установки/обновления VBExtensions при запуске Vagrant, так как они были предварительно вшиты в box(образ)
+  #Загрузка образа из Vagrant Cloud
+  config.vm.box = "IvanGoryainov/astrapresale"
+  config.vm.box_version = "2"
+  #Отключение автоматического обновления/установки VBExtensions(так как они уже вшиты в образ)
   config.vbguest.auto_update = false
-
 
   config.vm.provider "virtualbox" do |v|
 #Назначение имени виртуальной машине в VirtualBox
